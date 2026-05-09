@@ -1,0 +1,39 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# AI Summarization Platform — .gitignore
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ── Environment variables (NEVER commit secrets) ──
+.env
+.env.local
+.env.production
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# ── Node.js ──
+node_modules/
+.next/
+out/
+
+# ── Temp files ──
+backend/temp/
+*.tmp
+*.wav
+*.mp3
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── Whisper models (large files) ──
+*.pt

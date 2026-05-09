@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GLOBAL STYLES — Refined Dark Professional
+   Dark sidebar + White main area + Indigo accent
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+  --sidebar-bg: #0F1117;
+  --sidebar-text: #8B8FA3;
+  --sidebar-text-active: #FFFFFF;
+  --sidebar-hover: rgba(79, 70, 229, 0.08);
+  --sidebar-active-bg: rgba(79, 70, 229, 0.12);
+  --sidebar-active-border: #4F46E5;
+  --main-bg: #F8F9FB;
+  --card-bg: #FFFFFF;
+  --card-border: #E5E7EB;
+  --card-border-hover: #D1D5DB;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --accent: #4F46E5;
+  --accent-light: #EEF2FF;
+  --accent-hover: #4338CA;
+  --input-border: #E5E7EB;
+  --input-focus: #4F46E5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  background: var(--main-bg);
+  color: var(--text-primary);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+/* ── Selection color ─────────────────────────────────── */
+::selection {
+  background: rgba(79, 70, 229, 0.15);
+  color: var(--text-primary);
+}
