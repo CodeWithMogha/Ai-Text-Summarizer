@@ -45,6 +45,23 @@ Three input pipelines, one output: **Text → Gemini → Summary**
 - FFmpeg (`brew install ffmpeg`)
 - Google Gemini API Key ([get one here](https://aistudio.google.com/app/apikey))
 
+---
+
+## ☁️ One-Click Deployment (Full Stack)
+
+### 1. Deploy Backend (FastAPI)
+Click the button below to deploy the backend to **Render**. It will automatically use the `Dockerfile` and ask for your `GEMINI_API_KEY`.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/CodeWithMogha/Ai-Text-Summarizer&subpath=backend)
+
+### 2. Deploy Frontend (Next.js)
+The frontend is already configured to deploy to **GitHub Pages** via the included GitHub Action.
+1.  Go to your repo **Settings** -> **Pages**.
+2.  Set Source to **GitHub Actions**.
+3.  Your site will be live at `https://CodeWithMogha.github.io/Ai-Text-Summarizer/`
+
+---
+
 ### Backend
 ```bash
 cd backend
