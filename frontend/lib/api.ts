@@ -1,17 +1,5 @@
 /**
  * AI Summarization Platform — API Client
- *
- * ALL API calls live here. Components never call fetch() directly.
- *
- * WHY CENTRALIZE API CALLS?
- * 1. One place to change the base URL (dev vs production)
- * 2. Consistent error handling across all endpoints
- * 3. Type safety — every response is typed
- * 4. Easy to add auth headers, retry logic, etc. later
- *
- * ANALOGY: This is like having one phone operator for a company.
- * Instead of everyone making their own calls, they go through
- * the operator who knows all the right numbers and protocols.
  */
 
 import {
@@ -24,9 +12,6 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-/**
- * Parse error responses from the API into user-friendly messages.
- */
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
     let errorMessage = "An unexpected error occurred. Please try again.";
@@ -37,7 +22,6 @@ async function handleResponse<T>(response: Response): Promise<T> {
         errorMessage = errorData.detail.message;
       }
     } catch {
-      // If we can't parse the error JSON, check common HTTP status codes
       if (response.status === 413) {
         errorMessage = "File is too large. Please try a smaller file.";
       } else if (response.status === 422) {
@@ -55,9 +39,6 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return response.json();
 }
 
-/**
- * Summarize raw text.
- */
 export async function summarizeText(
   text: string,
   length: SummaryLength = "medium",
@@ -73,9 +54,6 @@ export async function summarizeText(
   return handleResponse<TextSummaryResponse>(response);
 }
 
-/**
- * Summarize a PDF file.
- */
 export async function summarizePDF(
   file: File,
   length: SummaryLength = "medium",
@@ -90,16 +68,12 @@ export async function summarizePDF(
 
   const response = await fetch(`${API_URL}/api/summarize/pdf`, {
     method: "POST",
-    // Don't set Content-Type header — browser sets it with boundary for FormData
     body: formData,
   });
 
   return handleResponse<PDFSummaryResponse>(response);
 }
 
-/**
- * Summarize a video from URL.
- */
 export async function summarizeVideoURL(
   url: string,
   length: SummaryLength = "medium",
@@ -122,9 +96,6 @@ export async function summarizeVideoURL(
   return handleResponse<VideoSummaryResponse>(response);
 }
 
-/**
- * Summarize an uploaded video file.
- */
 export async function summarizeVideoUpload(
   file: File,
   length: SummaryLength = "medium",

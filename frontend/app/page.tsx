@@ -3,7 +3,7 @@
 import { useState, useRef, DragEvent } from "react";
 import {
   FileText, FileUp, Video, Link2, Upload, Sparkles, Copy, Download,
-  ChevronDown, MoreHorizontal, Clock, LayoutDashboard, History, Loader2,
+  ChevronDown, Clock, LayoutDashboard, Loader2,
 } from "lucide-react";
 import {
   summarizeText, summarizePDF, summarizeVideoURL, summarizeVideoUpload,
@@ -27,7 +27,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [summary, setSummary] = useState("");
-  const [keyPoints, setKeyPoints] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -51,7 +50,6 @@ export default function Home() {
         }
       }
       setSummary(result.summary);
-      setKeyPoints([]); // Never artificially create bullet points
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -82,12 +80,9 @@ export default function Home() {
   };
 
   const sidebarItems = [
-    { label: "Dashboard", icon: LayoutDashboard, active: false },
-    { label: "divider", icon: null, active: false },
-    { label: "SUMMARIZE", icon: null, active: false, isHeader: true },
     { label: "Text", icon: FileText, active: activeMode === "text", mode: "text" as InputMode },
     { label: "PDF", icon: FileUp, active: activeMode === "pdf", mode: "pdf" as InputMode },
-    { label: "Video", icon: Video, active: activeMode === "video", mode: "video" as InputMode, badge: "New" },
+    { label: "Video", icon: Video, active: activeMode === "video", mode: "video" as InputMode },
   ];
 
   const modes = [
@@ -115,9 +110,7 @@ export default function Home() {
 
         {/* Nav */}
         <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
-          {sidebarItems.map((item, i) => {
-            if (item.label.startsWith("divider")) return <div key={i} className="my-3 border-t border-white/5" />;
-            if (item.isHeader) return <p key={i} className="px-3 pt-4 pb-2 text-[10px] font-semibold text-[#4A4E63] uppercase tracking-[1.5px]">{item.label}</p>;
+          {sidebarItems.map((item) => {
             const Icon = item.icon!;
             return (
               <button
@@ -131,22 +124,10 @@ export default function Home() {
               >
                 <Icon size={16} strokeWidth={1.8} className={item.active ? "text-[#818CF8]" : "text-[#5A5E73] group-hover:text-[#8B8FA3]"} />
                 {item.label}
-                {item.badge && (
-                  <span className="ml-auto px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-emerald-500/15 text-emerald-400 tracking-wide">{item.badge}</span>
-                )}
               </button>
             );
           })}
         </nav>
-
-        {/* User */}
-        <div className="px-4 py-4 border-t border-white/5 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold">A</div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[13px] text-white font-medium truncate">Amitesh Mogha</p>
-            <p className="text-[11px] text-[#5A5E73] truncate">amitesh@email.com</p>
-          </div>
-        </div>
       </aside>
 
       {/* ═══ MAIN CONTENT ═══ */}
@@ -155,7 +136,7 @@ export default function Home() {
           {/* Header */}
           <div className="flex items-start justify-between mb-8">
             <div>
-              <h1 className="text-[22px] font-bold text-gray-900">Hello, Amitesh 👋</h1>
+              <h1 className="text-[22px] font-bold text-gray-900">AI Summarization Platform</h1>
               <p className="text-sm text-gray-500 mt-0.5">Get concise insights from text, documents, or videos in seconds.</p>
             </div>
           </div>
@@ -382,19 +363,7 @@ export default function Home() {
                 {summary ? (
                   <div className="animate-fade-in">
                     <p className="text-[14px] text-gray-700 leading-[1.7] mb-6 whitespace-pre-wrap">{summary}</p>
-                    {keyPoints.length > 0 && (
-                      <div>
-                        <h4 className="text-[14px] font-semibold text-gray-900 mb-3">Key Points</h4>
-                        <ul className="space-y-2">
-                          {keyPoints.map((point, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-[13px] text-gray-600 leading-[1.6]">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#4F46E5] mt-[7px] flex-shrink-0" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center py-12">

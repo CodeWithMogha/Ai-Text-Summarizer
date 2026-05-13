@@ -1,19 +1,8 @@
 /**
  * AI Summarization Platform — TypeScript Type Definitions
- *
- * WHY TYPES MATTER:
- * Without types, you might write: response.sumary (typo!)
- * With types, TypeScript catches this at compile time.
- * Types are your safety net — they catch bugs before users do.
  */
 
-// ── Summary Length Options ────────────────────────────────────
 export type SummaryLength = "short" | "medium" | "detailed";
-
-// ── Input Mode for the UI tab switcher ───────────────────────
-export type InputMode = "text" | "pdf" | "video";
-
-// ── API Response Types ───────────────────────────────────────
 
 export interface TextSummaryResponse {
   success: boolean;
@@ -61,8 +50,6 @@ export interface TranscriptSegment {
   text: string;
 }
 
-// ── API Error Response ───────────────────────────────────────
-
 export interface APIError {
   error: string;
   message: string;
@@ -70,15 +57,4 @@ export interface APIError {
 
 export interface APIErrorResponse {
   detail: APIError;
-}
-
-// ── Component Props ──────────────────────────────────────────
-
-export interface SummaryResult {
-  summary: string;
-  originalLength: number;
-  summaryLength: number;
-  compressionRatio: number;
-  chunksProcessed: number;
-  extraInfo?: Record<string, string | number>;
 }
